@@ -1,4 +1,4 @@
-# ErgoSphere - a personal Ergo ecosystem
+# ErgoSphere - a personal Ergo ecosystem<img width="15%" align="right" src="https://user-images.githubusercontent.com/39315532/170884890-d7a10707-0ed6-4705-a71a-de148e12123e.svg">
 ErgoSphere was created in the image of Umbrel (https://getumbrel.com), which allows the easy setup of self-hosted Ergo services.
 
 ## Services
