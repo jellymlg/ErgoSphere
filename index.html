@@ -1,11 +1,56 @@
-<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <p>Hello world</p>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ErgoSpere</title>
+    <link rel="stylesheet" href="ergosphere.css">
+    <script src="ergosphere.js"></script>
+</head>
+<body class="dark">
+    <div class="dark" id="content">
+        <div id="header">
+            <div id="logodiv">
+                <img src="logo.svg" alt="logo" id="logo">
+            </div>
+            <div>
+                <h1>Welcome to the ErgoSphere project</h1>
+                <h2>ErgoSphere - a personal Ergo ecosystem</h2>
+                <h2>Project repository: <a href="https://github.com/jellymlg/ErgoSphere" target="_blank">Github</a></h2>
+                <h3>ErgoSphere was created in the image of <a href="https://getumbrel.com" target="_blank">Umbrel</a>, which allows the easy setup of self-hosted Ergo services.</h3>
+                <h3 id="toUnderline"><b>DISCLAIMER</b>: This is experimental software, so do not use it with funds that you cannot afford to lose.</h1>
+            </div>
+        </div>
+        <div id="desc">
+            <div class="descelements">
+                <h1>Services</h1>
+                <h3>An Ergo full node gets installed by default, which serves as the foundation for other services. <br><br>
+                    Currently the following services are available on ErgoSphere:</h3> 
+                <ul>
+                    <li>Ergo explorer</li>
+                    <li>ErgoMixer</li>
+                    <li>ErgoDex offchain<br>execution</li>
+                </ul> 
+                <h3>This list is to be expanded with more services in the future.</h3>
+            </div>
+            <div class="descelements">
+                <h1>Dependencies</h1>
+                <h3>ErgoSphere is written in Java, and therefore can run on any system with a Java environment, however there are some additional dependencies:</h3>
+                <ul>
+                    <li>[Java >= 1.8]</li>
+                    <li>Docker</li>
+                    <li>Docker-compose (comes with Docker on Windows)</li>
+                    <li>SBT</li>
+                </ul>
+            </div>
+            <div class="descelements">
+                <h1>Running</h1>
+                <h3>ErgoSphere must be ran with administrative privilages. This is to make sure there won't be permission problems when interacting with Docker or PowerShell. <br>
+                    By default the web interface will be available on the local IP address of the host (e.g: 192.168.50.111), and all data will be stored in the "data" folder. <br>
+                    NOTE: all other services will be available on this address on their respective ports <br>
+                    Check README for command line parameters.</h3>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
