@@ -1,0 +1,1 @@
+sudo java -jar ErgoSphere-1.0.jar

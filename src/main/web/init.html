@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>ErgoSphere - Init</title>
+        <link rel="icon" href="img/logo.svg">
+        <link rel="stylesheet" href="glider.min.css">
+        <script src="glider.min.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+        <script>
+            window.addEventListener("load", function() {
+                initLoad();
+            });
+        </script>
+    </head>
+    <body style="opacity: 0;">
+        <div class="element init_card">
+            <img src="img/logo.svg">
+            <div class="glider">
+                <div>
+                    <p class="msg">Welcome to ErgoSphere!</p>
+                </div>
+                <div>
+                    <p class="msg">Please enter a username.</p>
+                    <input type="text" id="init_username">
+                </div>
+                <div>
+                    <p class="msg">Please enter a password.</p>
+                    <input type="password" id="init_password1">
+                    <input type="password" id="init_password2">
+                </div>
+                <div>
+                    <p class="msg">Set the maximum memory for Node.</p>
+                    <input type="range" id="init_memory" min="500" value="500">
+                    <p id="init_memory_label">500 MiB</p>
+                </div>
+            </div>
+            <button id="next">Next</button>
+            <div id="dots"></div>
+        </div>
+    </body>
+</html>

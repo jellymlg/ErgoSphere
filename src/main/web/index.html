@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>ErgoSphere - Home</title>
+        <link rel="icon" href="img/logo.svg">
+        <link rel="stylesheet" href="glider.min.css">
+        <script src="glider.min.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+        <script>
+            window.addEventListener("load", function() {
+                indexLoad();
+            });
+        </script>
+    </head>
+    <body style="opacity: 0;">
+        <div id="balance" class="element">
+            <p id="balLabel">Balance</p>
+            <p id="bal"></p>
+            <p id="fiat"></p>
+            <div id="toggle" class="nano">
+                <p id="nanoERG">NanoERG</p>
+                <p id="ERG">Ergo</p>
+                <div id="circle"></div>
+            </div>
+        </div>
+        <div id="header" class="element">
+            <img src="img/logo.svg" id="logo">
+            <p id="username"></p>
+            <img src="img/logout.svg" id="logout">
+        </div>
+        <div id="content" class="glider">
+            <div>
+                <div class="title" id="homeTitle"></div>
+                <div class="element card1">
+                    <p class="cardName">Ergo Wallet</p>
+                    <li class="cardStatus" id="walletStatus"><span></span></li>
+                    <div class="cardHeader">
+                        <p class="data" id="ergBal"></p>
+                        <p class="label">nanoERG</p>
+                    </div>
+                    <img src="img/wallet.svg" class="cardLogo">
+                    <div class="cardData" id="txs"></div>
+                </div>
+                <div class="element card1">
+                    <p class="cardName">Ergo Node</p>
+                    <li class="cardStatus" id="nodeStatus"><span></span></li>
+                    <div class="cardHeader">
+                        <p class="data" id="syncStatus"></p>
+                        <p class="label" id="syncStatusLabel1"></p>
+                    </div>
+                    <img src="img/erg.svg" class="cardLogo correctErgLogo">
+                    <div class="cardData" id="blocks1"></div>
+                </div>
+                <div class="element card1">
+                    <div class="stat">
+                        <p class="cardName">Processor</p>
+                        <p id="cpuNum"></p>
+                        <img src="img/cpu.svg">
+                        <p id="cpuDetails"></p>
+                        <div class="progress" id="cpuProg"></div>
+                    </div>
+                    <div class="stat">
+                        <p class="cardName">Memory</p>
+                        <p id="ramNum"></p>
+                        <img src="img/ram.svg">
+                        <p id="ramDetails"></p>
+                        <div class="progress" id="ramProg"></div>
+                    </div>
+                    <div class="stat">
+                        <p class="cardName">Storage</p>
+                        <p id="hddNum"></p>
+                        <img src="img/floppy.svg">
+                        <p id="hddDetails"></p>
+                        <div class="progress" id="hddProg"></div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="title" id="nodeTitle">
+                    <img src="img/erg.svg">
+                    <li id="nodeState"><span></span></li><br>
+                    <p>Ergo node</p><br><br>
+                    <p id="nodeTitleVersion"></p>
+                </div>
+                <div class="element card1">
+                    <p class="cardName">Blockchain</p>
+                    <div class="cardHeader sync">
+                        <p class="" id="syncStatus2"></p>
+                        <p class="label" id="syncStatusLabel2"></p>
+                        <div class="progress" id="syncProgress"></div>
+                    </div>
+                    <div class="cardData" id="blocks2"></div>
+                </div>
+                <div class="element card2">
+                    <p class="cardName" id="networkLabel">Network</p>
+                    <iframe src="map/index.html"></iframe>
+                </div>
+            </div>
+            <div>
+                <div class="title" id="appsTitle">
+                    <img src="img/apps.svg">
+                    <p>Apps</p>
+                </div>
+                <div class="scrollable" id="apps"></div>
+            </div>
+            <div>
+                <div class="title" id="storeTitle">
+                    <img src="img/store.svg">
+                    <p>App store</p>
+                </div>
+                <div class="scrollable" id="store"></div>
+            </div>
+            <div>
+                <div class="title" id="settingsTitle">
+                    <img src="img/settings.svg">
+                    <p>Settings</p>
+                </div>
+                <div class="element card1">
+                    <button id="getAPIkey">Show API key</button>
+                    <button id="shutdown">Shutdown</button>
+                </div>
+            </div>
+        </div>
+        <div id="sidebar" class="element">
+            <ul>
+                <li id="p1" class="page_active">Home</li>
+                <li id="p2">Ergo node</li>
+                <li id="p3">Apps</li>
+                <li id="p4">App store</li>
+                <li id="p5">Settings</li>
+            </ul>
+        </div>
+    </body>
+</html>

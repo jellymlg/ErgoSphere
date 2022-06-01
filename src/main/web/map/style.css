@@ -1,0 +1,97 @@
+html, body {
+    font-family: 'Arial';
+    overflow: hidden;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #04006c;
+    color: white;
+}
+#info {
+    width: 25%;
+    height: 99%;
+    float: left;
+    border: 5px solid #121212;
+    border-radius: 20px;
+    text-align: center;
+    background-color: #4500ff;
+}
+#chart {
+    width: calc(75% - 2 * 5px);
+    height: 100%;
+    float: right;
+}
+input[type="text"] {
+    font-size: 130%;
+    width: 80%;
+    border: none;
+    height: 30px;
+    border-radius: 10px;
+    outline: none;
+    padding: 5px;
+}
+#source {
+    font-size: 100%;
+    width: 50%;
+    height: 20px;
+    padding: 10px;
+}
+#default {
+    height: 95%;
+}
+#list {
+    height: 80%;
+    overflow-y: scroll;
+    margin: 15px;
+    width: 90%;
+}
+#list div p {
+    text-align: center;
+    padding: 10px;
+    margin: 0px;
+}
+#list::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+  }
+#list::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+#list::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(45deg, #00aeff, #a68eff);
+    border-radius: 10px;
+}
+#list div {
+    background-color: #04006c;
+    transition: 0.3s;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 5px 5px 5px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+#list div:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: #00aeff;
+}
+#close {
+    text-align: left;
+    width: min-content;
+}
+#close:before {
+    content: "✖";
+    font-size: 150%;
+    padding: 0.5em;
+    cursor: pointer;
+  }
+#inspect {
+    display: none;
+    background-color: #04006c;
+    border-radius: 10px;
+    margin: 15px;
+    box-shadow: 5px 5px 5px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+input[type="checkbox"]:hover, input[type="button"]:hover {
+    cursor: pointer;
+}

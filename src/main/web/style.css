@@ -1,0 +1,743 @@
+html, body {
+    --erg-color: #ff5135;
+    --light: #161b22;
+    --dark: #0d1117;
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    background-color: var(--dark);
+    color: white;
+    font-family: "Arial";
+    font-size: 120%;
+}
+
+.element {
+    border-radius: 20px;
+    background-color: var(--light);
+}
+
+.init_card {
+    max-width: 400px;
+    box-shadow: 0px 5px 10px 3px var(--erg-color);
+    width: 20%;
+    height: 60%;
+    text-align: center;
+    position: relative;
+    top: 20%;
+    left: 40%;
+}
+
+.init_card img {
+    width: 60%;
+    padding: 5%;
+}
+
+#next {
+    background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+    border: 0;
+    border-radius: 12px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 2.5;
+    outline: transparent;
+    padding: 0 1rem;
+    text-decoration: none;
+    transition: box-shadow .2s linear;
+    user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+}
+
+#next:hover {
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+#next:active {
+    background: linear-gradient(to top right, #EF4765, #FF9A5A);
+}
+
+.glider {
+    overflow-x: hidden;
+}
+
+.glider-slide, #next {
+    margin-bottom: 15%;
+    font-weight: bold;
+}
+
+.glider-slide {
+    user-select: none;
+}
+
+#dots, #next {
+    position: absolute;
+    bottom: 0%;
+    left: 25%;
+    width: 50%;
+}
+
+#init_username, #init_password1, #init_password2 {
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    height: 20px;
+    width: 70%;
+    padding: 10px;
+    font-size: 120%;
+}
+
+#init_password2 {
+    margin-top: 5%;
+}
+
+input[type="range"] {
+    cursor: pointer;
+    outline: none;
+}
+
+#balance, #header, #sidebar, #content {
+    margin: 0.5%;
+}
+
+#balance {
+    float: left;
+    width: 20%;
+    height: 25%;
+    margin-right: 0px;
+    text-align: center;
+}
+
+#header {
+    float: right;
+    width: 78%;
+    height: 10%;
+}
+
+#sidebar {
+    float: left;
+    width: 20%;
+    height: 70%;
+    margin-right: 0px;
+    user-select: none;
+}
+
+#content {
+    float: right;
+    width: 75%;
+    height: 100%;
+}
+
+.icon {
+    width: 30px;
+}
+
+#sidebar div {
+    height: 20%;
+}
+
+#sidebar ul {
+    list-style: none;
+    padding: 0px;
+    height: 90%;
+}
+
+#sidebar li {
+    margin: 15%;
+    font-size: 130%;
+    cursor: pointer;
+}
+
+#sidebar li::before {
+    content: "";
+    margin-right: 10px;
+    float: left;
+    margin-top: -3px;
+    height: 40px;
+    width: 40px;
+    background-size: contain;
+}
+
+#p1::before {
+    background-image: url("img/home.svg");
+}
+
+#p2::before {
+    background-image: url("img/erg.svg");
+}
+
+#p3::before {
+    background-image: url("img/apps.svg");
+}
+
+#p4::before {
+    background-image: url("img/store.svg");
+}
+
+#p5::before {
+    background-image: url("img/settings.svg");
+}
+
+.page_active#p1::before {
+    background-image: url("img/home_active.svg");
+}
+
+.page_active#p2::before {
+    background-image: url("img/erg_active.svg");
+}
+
+.page_active#p3::before {
+    background-image: url("img/apps_active.svg");
+}
+
+.page_active#p4::before {
+    background-image: url("img/store_active.svg");
+}
+
+.page_active#p5::before {
+    background-image: url("img/settings_active.svg");
+}
+
+#p5 {
+    margin-top: 55% !important;
+}
+
+.page_active {
+    color: var(--erg-color);
+}
+
+#balLabel {
+    user-select: none;
+    text-align: left;
+    margin: 5%;
+}
+
+#bal {
+    font-size: 150%;
+    margin-bottom: 1%;
+    font-weight: 800;
+}
+
+#fiat {
+    font-size: 70%;
+    color: gray;
+}
+
+#toggle {
+    user-select: none;
+    background-color: var(--dark);
+    width: 100px;
+    margin: auto;
+    border-radius: 30px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#toggle p {
+    font-size: 50%;
+    display: inline-block;
+    margin: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#circle {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: var(--light);
+    margin-top: -33px;
+    position: relative;
+}
+
+#username, #logout {
+    float: right;
+    font-size: 200%;
+    margin: 1.4%;
+}
+
+#logo, #logout {
+    height: 80%;
+    cursor: pointer;
+    margin: 0.7%;
+}
+
+#logout {
+    width: 3%;
+}
+
+.nano #ERG {
+    opacity: 0;
+}
+
+.nano #nanoERG {
+    opacity: 1;
+}
+
+#ERG {
+    opacity: 1;
+}
+
+#nanoERG {
+    opacity: 0;
+}
+
+.nano #circle {
+    left: 70px;
+}
+
+#logo {
+    animation: rotate 1s linear 0s infinite;
+    user-select: none;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+.title {
+    width: 75%;
+    height: 13%;
+    margin: 2%;
+    margin-bottom: 0px;
+    line-height: 70%;
+}
+
+.card0, .card1, .card2 {
+    float: left;
+    user-select: auto;
+    width: 27%;
+    height: 66%;
+    margin: 2%;
+    box-shadow: 0px 5px 10px 3px var(--erg-color);
+    margin-top: 0px;
+}
+
+.card2 {
+    width: 60%;
+}
+
+#homeTitle p {
+    font-size: 240%;
+    margin: 0px;
+    font-weight: 800;
+    padding-top: 3%;
+}
+
+.cardName, .cardStatus {
+    margin: 8% !important;
+    font-size: 75%;
+}
+
+.cardName {
+    color: gray;
+    float: left;
+}
+
+.cardStatus {
+    float: right;
+}
+
+.cardHeader, .cardData {
+    float: left;
+    clear: both;
+    width: 40%;
+}
+
+.cardData {
+    width: 100%;
+    margin-top: 5%;
+}
+
+#txs {
+    width: 100%;
+}
+
+#txs > p {
+    text-align: center;
+}
+
+.tx {
+    width: 84%;
+    margin: 8%;
+    float: left;
+    clear: both;
+    margin-top: 2%;
+    margin-bottom: 0px;
+}
+
+.tx img {
+    float: left;
+    width: 15%;
+    margin-right: 5%;
+}
+
+.tx p {
+    float: left;
+    font-size: 75%;
+    margin-bottom: 0px;
+    clear: left;
+}
+
+.tx .time, .tx .valueLabel {
+    font-size: 50%;
+    color: gray;
+    font-weight: normal;
+}
+
+.tx .value, .tx .valueLabel {
+    float: right;
+    clear: right;
+}
+
+.cardLogo {
+    width: 25%;
+    float: right;
+    margin-right: 8%;
+}
+
+li span {
+    position: relative;
+    left: -10px;
+}
+
+.cardHeader .label {
+    color: gray;
+    font-size: 60%;
+    margin-bottom: 0px;
+}
+
+.cardHeader .data {
+    font-size: 150%;
+    margin-top: 10%;
+    margin-bottom: 0px;
+}
+
+.cardHeader * {
+    margin-left: 20%;
+}
+
+.correctErgLogo {
+    margin-right: 10%;
+}
+
+#blocks1, #blocks2 {
+    height: 60%;
+    position: relative;
+}
+
+#blocks1 img, #blocks2 img {
+    width: 10%;
+    background-color: var(--erg-color);
+    border-radius: 50%;
+    border: 10px solid transparent;
+    float: left;
+    margin-right: 3%;
+}
+
+.block {
+    margin: 5%;
+    width: 90%;
+    float: left;
+    z-index: 10;
+    position: relative;
+}
+
+#blocks1 hr, #blocks2 hr {
+    width: 80%;
+    transform: rotate(90deg);
+    border: 1px solid var(--erg-color);
+    position: absolute;
+    left: -28%;
+    top: 50%;
+}
+
+#blocks1 > p, #blocks2 > p {
+    text-align: center;
+}
+
+.block p {
+    float: left;
+    font-size: 75%;
+}
+
+.blockTimeLabel {
+    float: right !important;
+    clear: initial !important;
+}
+
+.txCount, .blockTimeLabel {
+    clear: left;
+    font-size: 50% !important;
+    color: gray;
+    font-weight: normal;
+}
+
+.txCount {
+    margin-left: 19%;
+    margin-top: -5%;
+}
+
+.blockNumber {
+    margin: 0px;
+    margin-top: 1%;
+}
+
+.stat {
+    width: 100%;
+    float: left;
+}
+
+.stat img {
+    width: 25%;
+    float: right;
+    margin: 5%;
+    margin-top: 0px;
+    margin-left: 0px;
+}
+
+.stat > p:first-of-type {
+    float: left;
+    width: 100%;
+}
+
+.stat p {
+    float: left;
+    margin: 0px;
+    margin-left: 8%;
+}
+
+.progress {
+    float: left;
+    margin-left: 8%;
+    width: 55%;
+    height: 10px;
+    border-radius: 20px;
+    border: 5px solid var(--dark);
+    background: #222;
+}
+
+#cpuDetails, #ramDetails, #hddDetails {
+    font-size: 50% !important;
+    color: gray;
+    font-weight: normal;
+    float: left;
+    margin: 4% 0px 2% 8%;
+    width: 60%;
+}
+
+#syncStatusLabel2 {
+    font-size: 80%;
+    color: white;
+    width: 60%;
+    clear: left;
+}
+
+#syncProgress {
+    float: left;
+    width: 86%;
+    height: 10px;
+    border-radius: 20px;
+    margin-top: 0px;
+    margin-left: 10%;
+}
+
+.cardHeader.sync {
+    width: 90%;
+    height: 10%;
+}
+
+.cardHeader.sync * {
+    margin-left: 10%;
+}
+
+#syncStatus2 {
+    float: right;
+}
+
+#syncStatusLabel2, #syncStatus2 {
+    margin-top: 0px;
+    font-weight: normal;
+    font-size: 100%;
+}
+
+.card2 .cardName {
+    margin: 3% !important;
+}
+
+div#nodeTitle * {
+    margin-top: -2%;
+}
+
+#nodeTitle p {
+    margin: 0px;
+    float: left;
+    font-size: 125%;
+}
+
+#nodeTitle img {
+    width: 10%;
+    float: left;
+    margin-right: 2%;
+}
+
+#nodeState {
+    font-size: 75%;
+    float: left;
+}
+
+#nodeTitleVersion {
+    font-size: 55% !important;
+    color: gray;
+}
+
+#storeTitle, #appsTitle, #settingsTitle {
+    margin-top: 0px;
+}
+
+#storeTitle img, #appsTitle img, #settingsTitle img {
+    width: 10%;
+    float: left;
+    margin-left: -3%;
+}
+
+#storeTitle p, #appsTitle p, #settingsTitle p {
+    float: left;
+    font-size: 175%;
+}
+
+.card0 {
+    width: 95%;
+    height: 15%;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    margin-left: 15px;
+}
+
+.scrollable {
+    overflow-y: scroll;
+    height: 90%;
+    margin-right: 5px;
+}
+
+.scrollable::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(45deg, #EF4765, #FF9A5A);
+    border-radius: 10px;
+}
+
+.card0 img {
+    height: 75%;
+    float: left;
+    margin: 1%;
+}
+
+.card0 p {
+    float: left;
+    margin-top: 3%;
+    font-size: 175%;
+    width: 30%;
+}
+
+.description {
+    font-size: 75% !important;
+    color: gray;
+    margin-left: 5%;
+    width: 20% !important;
+}
+
+.card0 button {
+    cursor: pointer;
+    float: right;
+    margin: 2.5%;
+    padding: 1%;
+    font-size: 130%;
+    border: none;
+    width: 15%;
+    border-radius: 20px;
+}
+
+.start, .start:hover, .stop, .stop:hover, .install, .install:hover {
+    transition: 0.3s;
+}
+
+.start {
+    background-color: rgb(0, 175, 0);
+}
+
+.start:hover {
+    background-color: rgb(0, 255, 0);
+}
+
+.stop {
+    background-color: rgb(175, 0, 0);
+}
+
+.stop:hover {
+    background-color: rgb(255, 0, 0);
+}
+
+.install {
+    background-color: #dd2f1e;
+}
+
+.install:hover {
+    background-color: #ee6053;
+}
+
+.execDisabled {
+    background-color: gray !important;
+    cursor: not-allowed !important;
+}
+
+#shutdown, #getAPIkey {
+    background-color: rgb(175, 0, 0);
+    font-size: 175%;
+    margin: 12%;
+    width: 75%;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+#shutdown:hover {
+    background-color: rgb(255, 0, 0);
+}
+
+#networkLabel {
+    margin-bottom: 0px !important;
+}
+
+#getAPIkey {
+    background-color: #dd2f1e !important;
+}
+
+#getAPIkey:hover {
+    background-color: #ee6053 !important;
+}
+
+iframe {
+    float: left;
+    width: 95%;
+    height: 85%;
+    margin: 2%;
+    border: none;
+    border-radius: 20px;
+}
