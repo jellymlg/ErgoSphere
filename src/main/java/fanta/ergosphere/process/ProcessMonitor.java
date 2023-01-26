@@ -92,6 +92,7 @@ public final class ProcessMonitor {
             case INSTALL   : x.get().init();               return;
             case START     : x.get().start();              return;
             case STOP      : x.get().shutdown();x.reset(); return;
+            default: break;
         }
     }
 }

@@ -1,6 +1,5 @@
 package fanta.ergosphere.server;
 
-import fanta.ergosphere.main.Info;
 import fanta.ergosphere.main.Manager;
 import fanta.ergosphere.process.ProcessMonitor;
 import fanta.ergosphere.util.Credentials;

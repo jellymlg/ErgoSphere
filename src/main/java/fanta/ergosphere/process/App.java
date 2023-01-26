@@ -30,7 +30,7 @@ public abstract class App extends Thread {
     private boolean EXIT = false;
 
     private final int MAXLOGLEN;
-    private final ArrayList<String>[] LASTOUT;
+    private final ArrayList<ArrayList<String>> LASTOUT;
 
     protected static final String INIT = "INIT";
     
@@ -50,10 +50,10 @@ public abstract class App extends Thread {
             Command[] tmp = new Command[commands.length - 1];
             System.arraycopy(commands, 1, tmp, 0, commands.length - 1);
             EXTRA = tmp;
-            LASTOUT = new ArrayList[commands.length];
-            for(int i = 0; i < LASTOUT.length; i++) LASTOUT[i] = new ArrayList<String>();
+            LASTOUT = new ArrayList<ArrayList<String>>(commands.length);
+            for(int i = 0; i < LASTOUT.size(); i++) LASTOUT.set(i, new ArrayList<String>());
         }else {
-            LASTOUT = new ArrayList[]{new ArrayList<String>()};
+            LASTOUT = new ArrayList<ArrayList<String>>(){{add(new ArrayList<String>());}};
             EXTRA = new Command[0];
         }
         REPO = gitName;
@@ -94,10 +94,10 @@ public abstract class App extends Thread {
 
     private void addLog(String s, int processIndex) {
         processLog(s);
-        if(LASTOUT[processIndex].size() == MAXLOGLEN) {
-            LASTOUT[processIndex].remove(LASTOUT[processIndex].size() - 1);
-            LASTOUT[processIndex].add(0, s);
-        } else LASTOUT[processIndex].add(s);
+        if(LASTOUT.get(processIndex).size() == MAXLOGLEN) {
+            LASTOUT.get(processIndex).remove(LASTOUT.get(processIndex).size() - 1);
+            LASTOUT.get(processIndex).add(0, s);
+        } else LASTOUT.get(processIndex).add(s);
     }
 
     protected final void shutdown() throws IOException {
@@ -139,7 +139,7 @@ public abstract class App extends Thread {
     }
 
     protected final ArrayList<String> getLogs(int processIndex) {
-        return LASTOUT[processIndex];
+        return LASTOUT.get(processIndex);
     }
 
     protected final int getUsedMem_MiB() {
