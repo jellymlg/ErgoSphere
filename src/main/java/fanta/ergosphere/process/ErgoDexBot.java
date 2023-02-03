@@ -37,7 +37,7 @@ public final class ErgoDexBot extends App {
             if(getFromDB(ADDRESS).isEmpty()) putToDB(ADDRESS, ProcessMonitor.INSTANCE.getNewAddress());
             General.createFile(LOGGER, "dex/config.env", "JAVA_TOOL_OPTIONS=\"-Dnetwork.node-uri=" + Node.LOCAL + "/ -Dexchange.reward-address=" + getFromDB(ADDRESS) + "\"");
             LOGGER.info("Building ErgoDexBot. (There won't be a finish message, so wait until the CPU is NOT at 100% and the \"ergodexbot\" folder is ~1GB)");
-            General.run(PREFIX + (Info.isWindows() ? "\"" + new File(DIR + "/build.ps1").getAbsolutePath() + "\"" : "build"), DIR);
+            General.run(new Command(PREFIX + (Info.isWindows() ? "\"" + new File(DIR + "/build.ps1").getAbsolutePath() + "\"" : "build"), DIR));
         }catch(IOException e) {
             LOGGER.error("Could not initialize: " + e.getMessage());
             return;
@@ -59,9 +59,6 @@ public final class ErgoDexBot extends App {
     public String getLink() {
         return "";
     }
-
-    @Override
-    protected void processLog(String log) {}
 
     @Override
     protected App reset() {

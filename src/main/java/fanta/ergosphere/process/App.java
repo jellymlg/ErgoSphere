@@ -6,17 +6,15 @@ import fanta.ergosphere.util.Docker;
 import fanta.ergosphere.util.General;
 import fanta.ergosphere.util.General.Command;
 import fanta.ergosphere.util.SwayDB;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import swaydb.java.MultiMap;
 
-public abstract class App extends Thread {
+public abstract class App {
 
     private final Logger LOGGER;
 
@@ -27,10 +25,6 @@ public abstract class App extends Thread {
     private final Command[] EXTRA;
 
     private Process[] PROCESS;
-    private boolean EXIT = false;
-
-    private final int MAXLOGLEN;
-    private final ArrayList<ArrayList<String>> LASTOUT;
 
     protected static final String INIT = "INIT";
     
@@ -50,22 +44,17 @@ public abstract class App extends Thread {
             Command[] tmp = new Command[commands.length - 1];
             System.arraycopy(commands, 1, tmp, 0, commands.length - 1);
             EXTRA = tmp;
-            LASTOUT = new ArrayList<ArrayList<String>>(commands.length);
-            for(int i = 0; i < LASTOUT.size(); i++) LASTOUT.set(i, new ArrayList<String>());
         }else {
-            LASTOUT = new ArrayList<ArrayList<String>>(){{add(new ArrayList<String>());}};
             EXTRA = new Command[0];
         }
         REPO = gitName;
         LOGGER = logger;
         STORAGE = SwayDB.getTable(logger.getName());
-        MAXLOGLEN = Integer.parseInt(STORAGE.get("MAXLOGLEN").orElse("100"));
         containers.add(containerName);
         state = isInitialized() ? AppState.START : AppState.INSTALL;
     }
 
-    @Override
-    public final void run() {
+    public final void start() {
         if(!isInitialized()) {
             LOGGER.error("Not initialized.");
             Manager.shutdown();
@@ -76,37 +65,20 @@ public abstract class App extends Thread {
             PROCESS = new Process[1 + EXTRA.length];
             PROCESS[0] = General.run(COMMAND);
             for(int i = 1; i < PROCESS.length; i++) PROCESS[i] = General.run(EXTRA[i - 1]);
-            BufferedReader b = new BufferedReader(new InputStreamReader(PROCESS[0].getInputStream()));
             LOGGER.info("Started.");
             state = AppState.STOP;
-            String line = "";
-            while(!EXIT && (line = b.readLine()) != null) addLog(line);
-            b.close();
         }catch(IOException e) {
             LOGGER.error(e.getMessage());
         }
         LOGGER.info("Stopped" + (state.equals(AppState.STOPPING) ? "." : " active monitoring."));
     }
 
-    private void addLog(String s) {
-        addLog(s, 0);
-    }
-
-    private void addLog(String s, int processIndex) {
-        processLog(s);
-        if(LASTOUT.get(processIndex).size() == MAXLOGLEN) {
-            LASTOUT.get(processIndex).remove(LASTOUT.get(processIndex).size() - 1);
-            LASTOUT.get(processIndex).add(0, s);
-        } else LASTOUT.get(processIndex).add(s);
-    }
-
     protected final void shutdown() throws IOException {
-        EXIT = true;
         state = AppState.STOPPING;
         if(PROCESS != null) for(Process p : PROCESS) p.destroy();
         for(String name : containers) Docker.stop(name);
-        if(new File(COMMAND.dir).exists()) General.run(Docker.stopInFolder, COMMAND.dir);
-        for(Command c : EXTRA) if(new File(c.dir).exists()) General.run(Docker.stopInFolder, c.dir);
+        if(new File(COMMAND.dir).exists()) General.run(new Command(Docker.stopInFolder, COMMAND.dir));
+        for(Command c : EXTRA) if(new File(c.dir).exists()) General.run(new Command(Docker.stopInFolder, c.dir));
         state = AppState.START;
     }
 
@@ -132,14 +104,6 @@ public abstract class App extends Thread {
     
     protected final String getFromDB(String key) {
         return STORAGE.get(key).orElse("");
-    }
-
-    protected final ArrayList<String> getLogs() {
-        return getLogs(0);
-    }
-
-    protected final ArrayList<String> getLogs(int processIndex) {
-        return LASTOUT.get(processIndex);
     }
 
     protected final int getUsedMem_MiB() {
@@ -184,6 +148,5 @@ public abstract class App extends Thread {
     public abstract String getAppName();
     protected abstract String getLink();
     protected abstract void init();
-    protected abstract void processLog(final String log);
     protected abstract App reset();
 }

@@ -38,7 +38,7 @@ public final class Explorer extends App {
             General.replaceLines(LOGGER, "explorer/" + BACKEND + "/modules/explorer-api/src/main/resources/application.conf",    "http.host",    "http.host = \"" + Parameters.getAddress() + "\"");
             General.replaceLines(LOGGER, "explorer/" + BACKEND + "/modules/utx-broadcaster/src/main/resources/application.conf", "master-nodes", "master-nodes = [\"" + Node.LOCAL + "\"]");
             General.replaceLines(LOGGER, "explorer/" + BACKEND + "/modules/utx-tracker/src/main/resources/application.conf",     "master-nodes", "master-nodes = [\"" + Node.LOCAL + "\"]");
-            General.run("sbt assembly", General.getDirName(LOGGER) + "/backend");
+            General.run(new Command("sbt assembly", General.getDirName(LOGGER) + "/backend"));
 
             GitUtil.downloadLatest("ergoplatform/explorer-frontend", "explorer/" + FRONTEND);
             General.replaceLines(LOGGER, "explorer/" + FRONTEND + "/src/config/environment.default.ts", "apiUrl",     "  apiUrl: \'http://" + Parameters.getAddress() + ":8080/api/v0\',");
@@ -90,9 +90,6 @@ public final class Explorer extends App {
     public String getLink() {
         return isRunning() ? "http://" + Parameters.getAddress() + ":3000" : "";
     }
-
-    @Override
-    protected void processLog(String log) {}
 
     @Override
     protected App reset() {

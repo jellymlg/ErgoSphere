@@ -104,8 +104,7 @@ public final class Node extends App {
         initOK();
     }
 
-    @Override
-    protected void processLog(final String log) {
+    protected void processLog(final String log) { // TODO fix this
         if(!LOADED && (log.contains("State database read") || log.contains("New best"))) {
             LOADED = true;
             LOGGER.info("Loaded.");

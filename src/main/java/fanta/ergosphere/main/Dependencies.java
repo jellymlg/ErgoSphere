@@ -22,10 +22,9 @@ public final class Dependencies {
                 Process p = Runtime.getRuntime().exec(LOCATE + dep);
                 BufferedReader b = new BufferedReader(new InputStreamReader(p.getInputStream()));
                 final String s = b.readLine();
-                final boolean success = s.contains("\\") || s.contains("/");
+                if(s == null || !(s.contains("\\") || s.contains("/"))) throw new IOException();
                 b.close();
                 p.destroy();
-                if(!success) throw new IOException();
                 if(dep.equals("docker")) {
                     BufferedReader tmp = new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec("docker version").getInputStream()));
                     String in;
@@ -39,7 +38,8 @@ public final class Dependencies {
                 }
             }catch(IOException e) {
                 Manager.LOGGER.error("Dependency \"" + dep + "\" not found or not running.");
-                Manager.shutdown();
+                Manager.shutdown(false);
+                return;
             }
         }
         Docker.download("ergoplatform/ergo");

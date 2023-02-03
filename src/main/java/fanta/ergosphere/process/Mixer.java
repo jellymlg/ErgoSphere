@@ -114,9 +114,6 @@ public final class Mixer extends App {
     }
 
     @Override
-    protected void processLog(String log) {}
-
-    @Override
     protected App reset() {
         return new Mixer();
     }

@@ -43,12 +43,16 @@ public final class Manager {
         }
     }
 
-    public static void shutdown() {
+    public static void shutdown(boolean killApps) {
         SERVER.stop();
-        ProcessMonitor.INSTANCE.shutdown();
+        if(killApps) ProcessMonitor.INSTANCE.shutdown();
         SwayDB.shutdown();
         LOGGER.info("Shutting down");
         System.exit(0);
+    }
+
+    public static void shutdown() {
+        shutdown(true);
     }
 
     public static boolean isInitialized() {
