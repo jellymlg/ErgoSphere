@@ -1,8 +1,8 @@
-# ErgoSphere - a personal Ergo ecosystem<img width="15%" align="right" src="https://user-images.githubusercontent.com/39315532/170884890-d7a10707-0ed6-4705-a71a-de148e12123e.svg">
+# ErgoSphere - a personal Ergo ecosystem`<img width="15%" align="right" src="https://user-images.githubusercontent.com/39315532/170884890-d7a10707-0ed6-4705-a71a-de148e12123e.svg">`
 
 ErgoSphere was created in the image of Umbrel (https://getumbrel.com), which allows the easy setup of self-hosted Ergo services.
 
-<ins>**DISCLAIMER:** This is experimental software, so do not use it with funds that you cannot afford to lose.</ins>
+`<ins>`**DISCLAIMER:** This is experimental software, so do not use it with funds that you cannot afford to lose.`</ins>`
 
 ## Services
 
@@ -39,12 +39,12 @@ NOTE: all other services will be available on this address on their respective p
 
 These default can be overwritten with command line parameters:
 
-    -address=`<IP ADDRESS>`
-    -port=`<PORT NUMBER>`
-    -storage=`<DATA DIRECTORY>`
+    --address=`<IP ADDRESS>`
+    --port=`<PORT NUMBER>`
+    --storage=`<DATA DIRECTORY>`
 
 An example for using custom parameters would look like this:
 
-    java -jar ErgoSphere.jar -address=192.168.0.120 -port=5555 -storage=ESdata/
+    java -jar ErgoSphere.jar -a 192.168.0.120 -p 5555 -s ESdata/
 
 In this example the web interface will be accessible on http://192.168.0.120:5555, and all data will be stored in the "ESdata" folder.
