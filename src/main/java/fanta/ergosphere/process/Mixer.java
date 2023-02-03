@@ -1,6 +1,6 @@
 package fanta.ergosphere.process;
 
-import fanta.ergosphere.main.Parameters;
+import fanta.ergosphere.main.Manager;
 import fanta.ergosphere.util.Docker;
 import fanta.ergosphere.util.General;
 import fanta.ergosphere.util.General.Command;
@@ -21,7 +21,7 @@ public final class Mixer extends App {
     private static final String PASS = "DBPASS";
 
     protected Mixer() {
-        super("ergoMixer/ergoMixBack", "ergo_mixer", LOGGER, new Command("docker run --rm -p " + Parameters.getAddress() + ":9000:9000 "
+        super("ergoMixer/ergoMixBack", "ergo_mixer", LOGGER, new Command("docker run --rm -p " + Manager.getAddress() + ":9000:9000 "
                                                       + "--name \"ergo_mixer\" "
                                                       + "-v " + General.getPathOf(LOGGER) + ":/home/ergo/ergoMixer "
                                                       + "-v " + General.getPathOf(LOGGER) + "/config.conf:/home/ergo/mixer/application.conf "
@@ -55,7 +55,7 @@ public final class Mixer extends App {
                     "  filters {\n" +
                     "    hosts {\n" +
                     "      # Allow requests to example.com, its subdomains, and localhost:9000.\n" +
-                    "      allowed = [\"localhost\", \"127.0.0.1\", \"" + Parameters.getAddress() + "\"]\n" +
+                    "      allowed = [\"localhost\", \"127.0.0.1\", \"" + Manager.getAddress() + "\"]\n" +
                     "    }\n" +
                     "    cors {\n" +
                     "      pathPrefixes = [\"/\"]\n" +
@@ -69,7 +69,7 @@ public final class Mixer extends App {
                     "networkType = \"mainnet\"\n" +
                     "explorerBackend = \"https://api.ergoplatform.com\"\n" +    //TODO require local?
                     "explorerFrontend = \"https://explorer.ergoplatform.com\"\n" +
-                    "nodes = [\"" + Parameters.getAddress() + ":9053\", \"213.239.193.208:9053\", \"159.65.11.55:9053\", \"165.227.26.175:16042\", \"159.89.116.15:11088\"]\n" +
+                    "nodes = [\"" + Manager.getAddress() + ":9053\", \"213.239.193.208:9053\", \"159.65.11.55:9053\", \"165.227.26.175:16042\", \"159.89.116.15:11088\"]\n" +
                     "\n" +
                     "// database info, will be saved in home directory. this is where all secrets are saved. make sure its safe.\n" +
                     "database = {\n" +
@@ -110,7 +110,7 @@ public final class Mixer extends App {
 
     @Override
     public String getLink() {
-        return isRunning() ? "http://" + Parameters.getAddress() + ":9000" : "";
+        return isRunning() ? "http://" + Manager.getAddress() + ":9000" : "";
     }
 
     @Override

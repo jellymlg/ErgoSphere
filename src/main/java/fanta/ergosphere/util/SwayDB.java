@@ -1,9 +1,10 @@
 package fanta.ergosphere.util;
 
-import fanta.ergosphere.main.Parameters;
 import java.nio.file.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import fanta.ergosphere.main.Manager;
 import swaydb.java.MultiMap;
 import swaydb.java.persistent.PersistentMultiMap;
 import static swaydb.java.serializers.Default.stringSerializer;
@@ -17,8 +18,8 @@ public final class SwayDB {
     private final MultiMap<String, String, String, Void> DB;
 
     private SwayDB() {
-        LOGGER.info("Using \"" + Parameters.getStorage() + "\" for data storage.");
-        DB = PersistentMultiMap.functionsOff(Paths.get(Parameters.getStorage() + "/db"), stringSerializer(), stringSerializer(), stringSerializer()).get();
+        LOGGER.info("Using \"" + Manager.getStorage() + "\" for data storage.");
+        DB = PersistentMultiMap.functionsOff(Paths.get(Manager.getStorage() + "/db"), stringSerializer(), stringSerializer(), stringSerializer()).get();
         LOGGER.info("Started database system.");
     }
 

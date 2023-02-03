@@ -1,7 +1,6 @@
 package fanta.ergosphere.util;
 
 import fanta.ergosphere.main.Manager;
-import fanta.ergosphere.main.Parameters;
 import java.io.File;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -16,7 +15,7 @@ public final class GitUtil {
     
     public static void downloadLatest(String repoName, String targetDir) {
         try {
-            final File f = new File(Parameters.getStorage() + "/" + targetDir);
+            final File f = new File(Manager.getStorage() + "/" + targetDir);
             if(!f.exists()) f.mkdirs();
             Git.cloneRepository().setURI(REPO + repoName + ".git").setDirectory(f).call().close();
         }catch(GitAPIException e) {

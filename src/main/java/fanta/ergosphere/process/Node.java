@@ -1,7 +1,6 @@
 package fanta.ergosphere.process;
 
 import fanta.ergosphere.main.Manager;
-import fanta.ergosphere.main.Parameters;
 import fanta.ergosphere.util.Chain.Block;
 import fanta.ergosphere.util.Chain.Box;
 import fanta.ergosphere.util.Chain.Tx;
@@ -34,12 +33,12 @@ public final class Node extends App {
 
     private final Header API;
 
-    public static final String LOCAL = "http://" + Parameters.getAddress() + ":9053";
+    public static final String LOCAL = "http://" + Manager.getAddress() + ":9053";
 
     protected Node() {
         super("ergoplatform/ergo", "ergo_node", LOGGER,
   new Command("docker run --rm -p 9030:9030 --name \"ergo_node\" "
-            + "-p " + Parameters.getAddress() + ":9053:9053 "
+            + "-p " + Manager.getAddress() + ":9053:9053 "
             + "-v " + General.getPathOf(LOGGER) + ":/home/ergo/.ergo "
             + "-v " + General.getPathOf(LOGGER) + "/settings.conf:/home/ergo/settings.conf "
             + "-e MAX_HEAP=" + SwayDB.getTable(LOGGER.getName()).get(MEMORY).orElse("1000") + "M "
@@ -139,7 +138,7 @@ public final class Node extends App {
 
     @Override
     public String getLink() {
-        return isRunning() ? "http://" + Parameters.getAddress() + ":9053" : "";
+        return isRunning() ? "http://" + Manager.getAddress() + ":9053" : "";
     }
 
     @Override

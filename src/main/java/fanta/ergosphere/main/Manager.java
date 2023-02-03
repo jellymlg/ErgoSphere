@@ -2,10 +2,18 @@ package fanta.ergosphere.main;
 
 import fanta.ergosphere.server.JettyServer;
 import fanta.ergosphere.process.ProcessMonitor;
+import fanta.ergosphere.util.General;
 import fanta.ergosphere.util.SwayDB;
+import net.sourceforge.argparse4j.ArgumentParsers;
+import net.sourceforge.argparse4j.inf.ArgumentParser;
+import net.sourceforge.argparse4j.inf.Namespace;
 import swaydb.java.MultiMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.util.Arrays;
 
 public final class Manager {
@@ -15,6 +23,9 @@ public final class Manager {
     private static final JettyServer SERVER = new JettyServer();
 
     private static final MultiMap<String, String, String, Void> STORAGE = SwayDB.getTable(LOGGER.getName());
+
+    private static String ADDRESS, STORAGE_DIR;
+    private static int PORT;
 
     public static void main(String[] args) {
 
@@ -32,15 +43,53 @@ public final class Manager {
         }
 
         Dependencies.init();
-        Parameters.init(args);
+        ArgumentParser parser = ArgumentParsers.newFor("ErgoSphere").build()
+            .defaultHelp(true)
+            .description("A personal Ergo ecosystem.");
+        parser.addArgument("-a", "--address").setDefault(General.getLocalIP()).help("IP address to bind to.");
+        parser.addArgument("-p", "--port").setDefault("80").type(Integer.class).help("Port to bind to.");
+        parser.addArgument("-s", "--storage").setDefault("data/").help("Directory to store Ergo apps in.");
         LOGGER.info("Starting with arguments: " + Arrays.toString(args));
 
         try {
-            SERVER.start(Parameters.getAddress(), Parameters.getPort());
+            Namespace parsedArgs = parser.parseArgs(args);
+            ADDRESS = parsedArgs.getString("address");
+            PORT = parsedArgs.getInt("port");
+            STORAGE_DIR = parsedArgs.getString("storage");
+
+            InetAddress addr = InetAddress.getByName(ADDRESS);
+            if(!addr.getHostAddress().equals(ADDRESS) || addr instanceof Inet4Address)
+                throw new Exception("Invalid address specified.");
+
+            if(PORT <= 0 || PORT >= 65536)
+                throw new Exception("Specified port out of range.");
+
+            File f = new File(STORAGE_DIR);
+            if(f.exists()) {
+                if(!f.isDirectory()) throw new Exception("Specified storage directory exists, and is not a directory.");
+            }else {
+                Manager.LOGGER.info("The specified storage directory does not exits, creating...");
+                new File(f.getPath() + "/db").mkdirs();
+                if(!f.mkdir()) throw new Exception("Could not create storage directory.");
+            }
+
+            SERVER.start(ADDRESS, PORT);
             if(isInitialized()) ProcessMonitor.INSTANCE.start();
         }catch(Exception e) {
             LOGGER.error(e.getMessage());
         }
+    }
+
+    public static String getAddress() {
+        return ADDRESS;
+    }
+
+    public static int getPort() {
+        return PORT;
+    }
+
+    public static String getStorage() {
+        return STORAGE_DIR;
     }
 
     public static void shutdown(boolean killApps) {

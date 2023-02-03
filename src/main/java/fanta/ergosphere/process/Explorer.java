@@ -1,6 +1,6 @@
 package fanta.ergosphere.process;
 
-import fanta.ergosphere.main.Parameters;
+import fanta.ergosphere.main.Manager;
 import fanta.ergosphere.util.Docker;
 import fanta.ergosphere.util.General;
 import fanta.ergosphere.util.General.Command;
@@ -35,16 +35,16 @@ public final class Explorer extends App {
         try {
             GitUtil.downloadLatest("ergoplatform/explorer-backend", "explorer/" + BACKEND);
             General.replaceLines(LOGGER, "explorer/" + BACKEND + "/modules/chain-grabber/src/main/resources/application.conf",   "master-nodes", "master-nodes = [\"" + Node.LOCAL + "\"]");
-            General.replaceLines(LOGGER, "explorer/" + BACKEND + "/modules/explorer-api/src/main/resources/application.conf",    "http.host",    "http.host = \"" + Parameters.getAddress() + "\"");
+            General.replaceLines(LOGGER, "explorer/" + BACKEND + "/modules/explorer-api/src/main/resources/application.conf",    "http.host",    "http.host = \"" + Manager.getAddress() + "\"");
             General.replaceLines(LOGGER, "explorer/" + BACKEND + "/modules/utx-broadcaster/src/main/resources/application.conf", "master-nodes", "master-nodes = [\"" + Node.LOCAL + "\"]");
             General.replaceLines(LOGGER, "explorer/" + BACKEND + "/modules/utx-tracker/src/main/resources/application.conf",     "master-nodes", "master-nodes = [\"" + Node.LOCAL + "\"]");
             General.run(new Command("sbt assembly", General.getDirName(LOGGER) + "/backend"));
 
             GitUtil.downloadLatest("ergoplatform/explorer-frontend", "explorer/" + FRONTEND);
-            General.replaceLines(LOGGER, "explorer/" + FRONTEND + "/src/config/environment.default.ts", "apiUrl",     "  apiUrl: \'http://" + Parameters.getAddress() + ":8080/api/v0\',");
-            General.replaceLines(LOGGER, "explorer/" + FRONTEND + "/src/config/environment.default.ts", "apiBaseUrl", "  apiBaseUrl: \'http://" + Parameters.getAddress() + ":8080\',");
-            General.replaceLines(LOGGER, "explorer/" + FRONTEND + "/src/config/environment.default.ts", "url: \'http://localhost:3000\',", "      url: \'http://" + Parameters.getAddress() + ":3000\',");
-            General.replaceLines(LOGGER, "explorer/" + FRONTEND + "/src/config/environment.prod.ts",    "url:", "      url: \'http://" + Parameters.getAddress() + ":3000\',");
+            General.replaceLines(LOGGER, "explorer/" + FRONTEND + "/src/config/environment.default.ts", "apiUrl",     "  apiUrl: \'http://" + Manager.getAddress() + ":8080/api/v0\',");
+            General.replaceLines(LOGGER, "explorer/" + FRONTEND + "/src/config/environment.default.ts", "apiBaseUrl", "  apiBaseUrl: \'http://" + Manager.getAddress() + ":8080\',");
+            General.replaceLines(LOGGER, "explorer/" + FRONTEND + "/src/config/environment.default.ts", "url: \'http://localhost:3000\',", "      url: \'http://" + Manager.getAddress() + ":3000\',");
+            General.replaceLines(LOGGER, "explorer/" + FRONTEND + "/src/config/environment.prod.ts",    "url:", "      url: \'http://" + Manager.getAddress() + ":3000\',");
             General.createFile(LOGGER,   "explorer/" + FRONTEND + "/Dockerfile",
                 "FROM node:13.12.0-alpine\n" +
                 "WORKDIR /app\n" +
@@ -88,7 +88,7 @@ public final class Explorer extends App {
 
     @Override
     public String getLink() {
-        return isRunning() ? "http://" + Parameters.getAddress() + ":3000" : "";
+        return isRunning() ? "http://" + Manager.getAddress() + ":3000" : "";
     }
 
     @Override

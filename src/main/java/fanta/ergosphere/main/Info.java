@@ -79,7 +79,7 @@ public final class Info {
     }
 
     private static OSFileStore getDisk() {
-        final String path = new File(Parameters.getStorage()).getAbsolutePath();
+        final String path = new File(Manager.getStorage()).getAbsolutePath();
         for(OSFileStore osf : OS.getFileSystem().getFileStores()) if(path.startsWith(osf.getMount())) return osf;
         return OS.getFileSystem().getFileStores().get(0);
     }

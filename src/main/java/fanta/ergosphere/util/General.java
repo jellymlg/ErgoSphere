@@ -3,7 +3,6 @@ package fanta.ergosphere.util;
 import com.rfksystems.blake2b.security.Blake2bProvider;
 import fanta.ergosphere.main.Info;
 import fanta.ergosphere.main.Manager;
-import fanta.ergosphere.main.Parameters;
 import fanta.ergosphere.process.Node;
 import java.io.BufferedReader;
 import java.io.File;
@@ -103,7 +102,7 @@ public final class General {
     }
 
     public static String getDirName(Logger l) {
-        return Parameters.getStorage() + "/" + l.getName().toLowerCase().substring(l.getName().lastIndexOf(".") + 1);
+        return Manager.getStorage() + "/" + l.getName().toLowerCase().substring(l.getName().lastIndexOf(".") + 1);
     }
 
     public static String bytesToHex(byte[] data) {
