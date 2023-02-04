@@ -22,10 +22,10 @@ public final class Manager {
 
     private static final JettyServer SERVER = new JettyServer();
 
-    private static final MultiMap<String, String, String, Void> STORAGE = SwayDB.getTable(LOGGER.getName());
+    private static String ADDRESS = General.getLocalIP(), STORAGE_DIR = "data/";
+    private static int PORT = 80;
 
-    private static String ADDRESS, STORAGE_DIR;
-    private static int PORT;
+    private static final MultiMap<String, String, String, Void> STORAGE = SwayDB.getTable(LOGGER.getName());
 
     public static void main(String[] args) {
 
@@ -46,9 +46,9 @@ public final class Manager {
         ArgumentParser parser = ArgumentParsers.newFor("ErgoSphere").build()
             .defaultHelp(true)
             .description("A personal Ergo ecosystem.");
-        parser.addArgument("-a", "--address").setDefault(General.getLocalIP()).help("IP address to bind to.");
-        parser.addArgument("-p", "--port").setDefault("80").type(Integer.class).help("Port to bind to.");
-        parser.addArgument("-s", "--storage").setDefault("data/").help("Directory to store Ergo apps in.");
+        parser.addArgument("-a", "--address").setDefault(ADDRESS).help("IP address to bind to.");
+        parser.addArgument("-p", "--port").setDefault(PORT).type(Integer.class).help("Port to bind to.");
+        parser.addArgument("-s", "--storage").setDefault(STORAGE_DIR).help("Directory to store Ergo apps in.");
         LOGGER.info("Starting with arguments: " + Arrays.toString(args));
 
         try {
