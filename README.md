@@ -39,9 +39,9 @@ NOTE: all other services will be available on this address on their respective p
 
 These default can be overwritten with command line parameters:
 
-    --address=`<IP ADDRESS>`
-    --port=`<PORT NUMBER>`
-    --storage=`<DATA DIRECTORY>`
+    --address <IP ADDRESS>
+    --port <PORT NUMBER>
+    --storage <DATA DIRECTORY>
 
 An example for using custom parameters would look like this:
 
