@@ -23,10 +23,10 @@ This list is to be expanded with more services in the future.
 ErgoSphere is written in Java, and therefore can run on any system with a Java environment, however there are some additional dependencies:
 
 <ul>
-  <li>Java >= 1.8 [https://www.java.com/en/download/]</li>
-  <li>Docker [https://www.docker.com/get-started/]</li>
+  <li><a href="https://www.java.com/en/download/">Java >= 1.8</a></li>
+  <li><a href="https://www.docker.com/get-started/">Docker</a></li>
   <li>Docker-compose (comes with Docker on Windows)</li>
-  <li>SBT [https://www.scala-sbt.org/download.html]</li>
+  <li><a href="https://www.scala-sbt.org/download.html">SBT</a></li>
 </ul>
 
 ## Running
