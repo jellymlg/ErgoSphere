@@ -2,7 +2,7 @@
 
 ErgoSphere was created in the image of Umbrel (https://getumbrel.com), which allows the easy setup of self-hosted Ergo services.
 
-`<ins>`**DISCLAIMER:** This is experimental software, so do not use it with funds that you cannot afford to lose.`</ins>`
+<ins>**DISCLAIMER:** This is experimental software, so do not use it with funds that you cannot afford to lose.</ins>
 
 ## Services
 
