@@ -5,6 +5,8 @@ import fanta.ergosphere.main.Manager;
 import fanta.ergosphere.util.Docker;
 import fanta.ergosphere.util.General;
 import fanta.ergosphere.util.General.Command;
+import fanta.ergosphere.util.SwayDB.DB;
+import fanta.ergosphere.util.SwayDB.Table;
 import fanta.ergosphere.util.SwayDB;
 import java.io.File;
 import java.io.IOException;
@@ -12,19 +14,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import org.json.JSONObject;
 import org.slf4j.Logger;
-import swaydb.java.MultiMap;
 
 public abstract class App {
 
     private final Logger LOGGER;
 
-    private final MultiMap<String, String, String, Void> STORAGE;
+    private final DB STORAGE;
 
     private final String REPO;
-    private final Command COMMAND;
-    private final Command[] EXTRA;
+    private final Command[] COMMANDS;
 
-    private Process[] PROCESS;
+    private Process[] PROCESSES;
 
     protected static final String INIT = "INIT";
     
@@ -39,17 +39,10 @@ public abstract class App {
     }
     
     protected App(String gitName, String containerName, Logger logger, Command... commands) {
-        COMMAND = commands[0];
-        if(commands.length > 1) {
-            Command[] tmp = new Command[commands.length - 1];
-            System.arraycopy(commands, 1, tmp, 0, commands.length - 1);
-            EXTRA = tmp;
-        }else {
-            EXTRA = new Command[0];
-        }
+        COMMANDS = commands;
         REPO = gitName;
         LOGGER = logger;
-        STORAGE = SwayDB.getTable(logger.getName());
+        STORAGE = SwayDB.getTable(Table.fromLogger(logger));
         containers.add(containerName);
         state = isInitialized() ? AppState.START : AppState.INSTALL;
     }
@@ -62,24 +55,22 @@ public abstract class App {
         }
         state = AppState.STARTING;
         try {
-            PROCESS = new Process[1 + EXTRA.length];
-            PROCESS[0] = General.run(COMMAND);
-            for(int i = 1; i < PROCESS.length; i++) PROCESS[i] = General.run(EXTRA[i - 1]);
+            PROCESSES = new Process[COMMANDS.length];
+            for(int i = 0; i < PROCESSES.length; i++) PROCESSES[i] = General.run(COMMANDS[i]);
             LOGGER.info("Started.");
             state = AppState.STOP;
         }catch(IOException e) {
             LOGGER.error(e.getMessage());
         }
-        LOGGER.info("Stopped" + (state.equals(AppState.STOPPING) ? "." : " active monitoring."));
     }
 
     protected final void shutdown() throws IOException {
         state = AppState.STOPPING;
-        if(PROCESS != null) for(Process p : PROCESS) p.destroy();
+        if(PROCESSES != null) for(Process p : PROCESSES) p.destroy();
         for(String name : containers) Docker.stop(name);
-        if(new File(COMMAND.dir).exists()) General.run(new Command(Docker.stopInFolder, COMMAND.dir));
-        for(Command c : EXTRA) if(new File(c.dir).exists()) General.run(new Command(Docker.stopInFolder, c.dir));
+        for(Command c : COMMANDS) if(new File(c.dir).exists()) General.run(new Command(Docker.stopInFolder, c.dir));
         state = AppState.START;
+        LOGGER.info("Stopped.");
     }
 
     protected final void addContainer(String name) {
@@ -87,7 +78,7 @@ public abstract class App {
     }
 
     protected final boolean isRunning() {
-        return PROCESS == null ? false : Arrays.stream(PROCESS).allMatch(x -> x.isAlive());
+        return PROCESSES == null ? false : Arrays.stream(PROCESSES).allMatch(x -> x.isAlive());
     }
 
     protected final String getReponame() {
@@ -107,7 +98,7 @@ public abstract class App {
     }
 
     protected final int getUsedMem_MiB() {
-        return Arrays.stream(PROCESS).mapToInt(x -> General.byteToMB(Info.getProcess(x.pid()).getVirtualSize())).sum();
+        return Arrays.stream(PROCESSES).mapToInt(x -> General.byteToMB(Info.getProcess(x.pid()).getVirtualSize())).sum();
     }
 
     protected final boolean isInitialized() {

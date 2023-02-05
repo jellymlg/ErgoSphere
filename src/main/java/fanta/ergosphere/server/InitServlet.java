@@ -6,6 +6,8 @@ import fanta.ergosphere.process.ProcessMonitor;
 import fanta.ergosphere.util.Credentials;
 import fanta.ergosphere.util.General;
 import fanta.ergosphere.util.SwayDB;
+import fanta.ergosphere.util.SwayDB.Table;
+
 import java.io.IOException;
 import java.io.InputStream;
 import javax.servlet.ServletException;
@@ -61,7 +63,7 @@ public final class InitServlet extends HttpServlet {
 
         final JSONObject data = new JSONObject(in);
         if(data.getInt("memory") < Info.getAvailMem_MB() && Credentials.storeCredentials(data.getString("username"), data.getString("password"))) {
-            SwayDB.getTable(Manager.LOGGER.getName()).put("INIT", "OK");
+            SwayDB.getTable(Table.MANAGER).put("INIT", "OK");
             ProcessMonitor.INSTANCE.initDefaults(data.getInt("memory"), data.getString("username"));
             response.getWriter().println("{\"status\":\"OK\"}");
         }else response.getWriter().println("{\"status\":\"Error\"}");

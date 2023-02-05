@@ -1,18 +1,20 @@
 package fanta.ergosphere.util;
 
 import fanta.ergosphere.main.Manager;
+import fanta.ergosphere.util.SwayDB.DB;
+import fanta.ergosphere.util.SwayDB.Table;
+
 import static fanta.ergosphere.util.General.SHA256;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import swaydb.java.MultiMap;
 
 public final class Credentials {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Credentials.class);
     
-    private static final MultiMap<String, String, String, Void> STORAGE = SwayDB.getTable(LOGGER.getName());
+    private static final DB STORAGE = SwayDB.getTable(Table.CREDENTIALS);
 
     public static final int USER_MIN_LEN = 5, PASS_MIN_LEN = 5;
 

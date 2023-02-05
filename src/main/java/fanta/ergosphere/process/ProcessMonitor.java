@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import fanta.ergosphere.util.General;
 import fanta.ergosphere.util.SwayDB;
+import fanta.ergosphere.util.SwayDB.Table;
+
 import org.json.JSONArray;
 
 public final class ProcessMonitor {
@@ -68,8 +70,8 @@ public final class ProcessMonitor {
     }
 
     public void initDefaults(int maxMem, String name) {
-        SwayDB.getTable(Node.class.getName()).put(Node.MEMORY, "" + maxMem);
-        SwayDB.getTable(Node.class.getName()).put(Node.NAME, name);
+        SwayDB.getTable(Table.NODE).put(Node.MEMORY, "" + maxMem);
+        SwayDB.getTable(Table.NODE).put(Node.NAME, name);
         Apps.NODE.get().init();
         Apps.NODE.get().setAutoStart(true);
         start();

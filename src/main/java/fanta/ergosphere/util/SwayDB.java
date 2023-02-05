@@ -1,6 +1,8 @@
 package fanta.ergosphere.util;
 
 import java.nio.file.Paths;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,6 +12,32 @@ import swaydb.java.persistent.PersistentMultiMap;
 import static swaydb.java.serializers.Default.stringSerializer;
 
 public final class SwayDB {
+
+    public static final class DB {
+        private final MultiMap<String, String, String, Void> table;
+        DB(MultiMap<String, String, String, Void> table) {
+            this.table = table;
+        }
+        public Optional<String> get(String key) {
+            return table.get(key);
+        }
+        public void put(String key, String value) {
+            table.put(key, value);
+        }
+    }
+
+    public enum Table {
+        MANAGER("manager"),
+        CREDENTIALS("credentials"),
+        NODE("node");
+        final String name;
+        private Table(String name) {
+            this.name = name;
+        }
+        public static Table fromLogger(Logger logger) {
+            return valueOf(Table.class, logger.getName().toUpperCase());
+        }
+    }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SwayDB.class);
 
@@ -23,10 +51,10 @@ public final class SwayDB {
         LOGGER.info("Started database system.");
     }
 
-    public static MultiMap<String, String, String, Void> getTable(String name) {
-        return INSTANCE.DB.child(name);
+    public static DB getTable(Table table) {
+        return new DB(INSTANCE.DB.child(table.name));
     }
-    
+
     public static void shutdown() {
         INSTANCE.DB.close();
     }

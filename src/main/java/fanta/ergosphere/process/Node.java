@@ -11,6 +11,8 @@ import fanta.ergosphere.util.General;
 import fanta.ergosphere.util.General.Command;
 import fanta.ergosphere.util.SwayDB;
 import fanta.ergosphere.util.General.Header;
+import fanta.ergosphere.util.SwayDB.Table;
+
 import static java.nio.charset.StandardCharsets.UTF_8;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,7 +43,7 @@ public final class Node extends App {
             + "-p " + Manager.getAddress() + ":9053:9053 "
             + "-v " + General.getPathOf(LOGGER) + ":/home/ergo/.ergo "
             + "-v " + General.getPathOf(LOGGER) + "/settings.conf:/home/ergo/settings.conf "
-            + "-e MAX_HEAP=" + SwayDB.getTable(LOGGER.getName()).get(MEMORY).orElse("1000") + "M "
+            + "-e MAX_HEAP=" + SwayDB.getTable(Table.NODE).get(MEMORY).orElse("1000") + "M "
             + "ergoplatform/ergo --mainnet -c /home/ergo/settings.conf", General.getDirName(LOGGER)));
         if(getFromDB(API_KEY).isEmpty()) putToDB(API_KEY, General.random(15));
         API = new Header("api_key", getFromDB(API_KEY));

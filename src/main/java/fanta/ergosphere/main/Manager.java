@@ -4,10 +4,11 @@ import fanta.ergosphere.server.JettyServer;
 import fanta.ergosphere.process.ProcessMonitor;
 import fanta.ergosphere.util.General;
 import fanta.ergosphere.util.SwayDB;
+import fanta.ergosphere.util.SwayDB.DB;
+import fanta.ergosphere.util.SwayDB.Table;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.Namespace;
-import swaydb.java.MultiMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +26,7 @@ public final class Manager {
     private static String ADDRESS = General.getLocalIP(), STORAGE_DIR = "data/";
     private static int PORT = 80;
 
-    private static final MultiMap<String, String, String, Void> STORAGE = SwayDB.getTable(LOGGER.getName());
+    private static final DB STORAGE = SwayDB.getTable(Table.MANAGER);
 
     public static void main(String[] args) {
 
